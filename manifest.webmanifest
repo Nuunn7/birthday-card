@@ -1,6 +1,6 @@
 {
-  "name": "Төрсөн өдрийн мэнд",
-  "short_name": "Төрсөн өдөр",
+  "name": "Happy Birthday",
+  "short_name": "Birthday",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

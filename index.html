@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
@@ -7,17 +7,17 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Төрсөн өдөр">
-<meta name="description" content="Танд зориулсан бяцхан бэлэг байна ♥">
-<meta property="og:title" content="Төрсөн өдрийн мэнд хүргэе!">
-<meta property="og:description" content="Танд зориулсан бяцхан бэлэг байна ♥">
+<meta name="apple-mobile-web-app-title" content="Birthday">
+<meta name="description" content="A little gift made just for you ♥">
+<meta property="og:title" content="Happy Birthday!">
+<meta property="og:description" content="A little gift made just for you ♥">
 <meta property="og:image" content="/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<title>Төрсөн өдрийн мэнд</title>
+<title>Happy Birthday</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
@@ -50,7 +50,7 @@ canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated;image-r
 </head>
 <body>
 <div class="gb">
-<div class="bezel"><div class="led"><i></i>POWER</div><canvas id="c" width="192" height="192" aria-label="Төрсөн өдрийн мэндчилгээний тоглоом. Дэлгэц эсвэл A товч дарна."></canvas></div>
+<div class="bezel"><div class="led"><i></i>POWER</div><canvas id="c" width="192" height="192" aria-label="Birthday greeting game. Tap the screen or press A."></canvas></div>
 <div class="brand">PARTY BOY ♥</div>
 <div class="ctl"><div class="dpad"><span class="h"></span><span class="v"></span></div><div class="btns"><button class="btn b" id="bB" aria-label="B">B</button><button class="btn" id="bA" aria-label="A">A</button></div></div>
 <div class="sel"><span></span><span></span></div>
@@ -76,7 +76,8 @@ const F={
 'Ы':['#...#','#...#','#...#','##..#','#.#.#','#.#.#','##..#'],'Э':['.###.','#...#','....#','..###','....#','#...#','.###.'],
 'Ш':['#.#.#','#.#.#','#.#.#','#.#.#','#.#.#','#.#.#','#####'],'Я':['.####','#...#','#...#','.####','..#.#','.#..#','#...#'],
 '!':['..#..','..#..','..#..','..#..','..#..','.....','..#..'],'?':['.###.','#...#','....#','...#.','..#..','.....','..#..'],
-'♥':['.....','.#.#.','#####','#####','.###.','..#..','.....'],' ':['.....','.....','.....','.....','.....','.....','.....']};
+'♥':['.....','.#.#.','#####','#####','.###.','..#..','.....'],' ':['.....','.....','.....','.....','.....','.....','.....'],
+'A':['.###.', '#...#', '#...#', '#####', '#...#', '#...#', '#...#'],'B':['####.', '#...#', '#...#', '####.', '#...#', '#...#', '####.'],'C':['.###.', '#...#', '#....', '#....', '#....', '#...#', '.###.'],'D':['####.', '#...#', '#...#', '#...#', '#...#', '#...#', '####.'],'E':['#####', '#....', '#....', '####.', '#....', '#....', '#####'],'F':['#####', '#....', '#....', '####.', '#....', '#....', '#....'],'G':['.###.', '#...#', '#....', '#.###', '#...#', '#...#', '.###.'],'H':['#...#', '#...#', '#...#', '#####', '#...#', '#...#', '#...#'],'I':['.###.', '..#..', '..#..', '..#..', '..#..', '..#..', '.###.'],'J':['..###', '...#.', '...#.', '...#.', '...#.', '#..#.', '.##..'],'K':['#...#', '#..#.', '#.#..', '##...', '#.#..', '#..#.', '#...#'],'L':['#....', '#....', '#....', '#....', '#....', '#....', '#####'],'M':['#...#', '##.##', '#.#.#', '#.#.#', '#...#', '#...#', '#...#'],'N':['#...#', '##..#', '#.#.#', '#..##', '#...#', '#...#', '#...#'],'O':['.###.', '#...#', '#...#', '#...#', '#...#', '#...#', '.###.'],'P':['####.', '#...#', '#...#', '####.', '#....', '#....', '#....'],'Q':['.###.', '#...#', '#...#', '#...#', '#.#.#', '#..#.', '.##.#'],'R':['####.', '#...#', '#...#', '####.', '#.#..', '#..#.', '#...#'],'S':['.####', '#....', '#....', '.###.', '....#', '....#', '####.'],'T':['#####', '..#..', '..#..', '..#..', '..#..', '..#..', '..#..'],'U':['#...#', '#...#', '#...#', '#...#', '#...#', '#...#', '.###.'],'V':['#...#', '#...#', '#...#', '#...#', '#...#', '.#.#.', '..#..'],'W':['#...#', '#...#', '#...#', '#.#.#', '#.#.#', '##.##', '#...#'],'X':['#...#', '#...#', '.#.#.', '..#..', '.#.#.', '#...#', '#...#'],'Y':['#...#', '#...#', '.#.#.', '..#..', '..#..', '..#..', '..#..'],'Z':['#####', '....#', '...#.', '..#..', '.#...', '#....', '#####'],"'":['..#..', '..#..', '.....', '.....', '.....', '.....', '.....'],',':['.....', '.....', '.....', '.....', '.....', '..#..', '.#...'],'.':['.....', '.....', '.....', '.....', '.....', '.....', '..#..']};
 const r=(x,y,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(x),Math.round(y),w,h)};
 const tw=(s,k)=>s.length*6*k-k;
 const txt=(s,x,y,k,c,sh)=>{[...s].forEach((ch,i)=>{const gl=F[ch];if(!gl)return;gl.forEach((row,ry)=>{[...row].forEach((p,rx)=>{if(p==='#'){if(sh)r(x+i*6*k+rx*k+k,y+ry*k+k,k,k,sh);r(x+i*6*k+rx*k,y+ry*k,k,k,c)}})})})};
@@ -87,10 +88,10 @@ const LEG=[['..k...k..','.kk...kk.'],['...k.k...','..kk.kk..']];
 const spr=(rows,x,y,flip)=>rows.forEach((row,ry)=>[...row].forEach((c,rx)=>{if(c!=='.')r(x+(flip?8-rx:rx),y+ry,1,1,P[c])}));
 const G=150,BY=102;
 const blocks=[36,76,116,156].map(x=>({x,used:false,bump:0}));
-const L1=19,L2=25;
-const words=[{s:'ТӨРСӨН',tx:L1,ty:20,c:'#ff6fa3'},{s:'ӨДРИЙН',tx:L1+84,ty:20,c:'#7a6cf0'},{s:'МЭНД',tx:L2,ty:42,c:'#ff8a5c'},{s:'ХҮРГЭЕ!',tx:L2+60,ty:42,c:'#2fb58f'}];
+const L1=13,L2=55;
+const words=[{s:'HAPPY',tx:L1,ty:20,c:'#ff6fa3'},{s:'BIRTHDAY',tx:L1+72,ty:20,c:'#7a6cf0'},{s:'TO',tx:L2,ty:42,c:'#ff8a5c'},{s:'YOU!',tx:L2+36,ty:42,c:'#2fb58f'}];
 words.forEach(w=>{w.on=false;w.x=0;w.y=0});
-const wishes=['ИНЭЭД ХӨӨР ЧИНЬ БҮҮ ТАСРАГ','ЭРҮҮЛ ЭНХ ЭРЧ ХҮЧТЭЙ БАЙГААРАЙ','ЭНЭ ЖИЛ ХАМГИЙН ГОЁ ЖИЛ ЧИНЬ!','МӨРӨӨДӨЛ ЧИНЬ БИЕЛЭХ БОЛТУГАЙ','АЗ ЖАРГАЛ ҮРГЭЛЖ ДЭРГЭД ЧИНЬ'];
+const wishes=['NEVER STOP LAUGHING','STAY HEALTHY AND STRONG','THIS YEAR WILL BE YOUR BEST!','MAY ALL YOUR DREAMS COME TRUE','HAPPINESS IS ALWAYS NEAR YOU'];
 const kid={x:14,y:G,vy:0,ground:true,dir:1,f:0,target:36};
 const cake={x:240,tx:140,lit:true,on:false};
 let state='start',hits=0,t=0,wait=0,wish=-1,blowPending=false,ac=null;
@@ -159,7 +160,7 @@ bits.forEach(p=>r(p.x,p.y,2,2,p.c));
 if(state==='party'&&wish>=0){const s=wishes[wish],w=tw(s,1)+12,x=Math.round((192-w)/2);
 r(x,166,w,17,'#4a3b5c');r(x+1,167,w-2,15,'#fff8ec');txt(s,x+6,171,1,'#4a3b5c')}
 if(state==='start'){r(18,58,156,74,'#4a3b5c');r(20,60,152,70,'#fff8ec');r(20,60,152,3,'#ffd9ea');
-ctxt('ТАНД ЗОРИУЛАВ',70,1,'#9a87d6');ctxt('♥ БЭЛЭГ ♥',84,2,'#ff6fa3','#ffd9ea');if((t>>5)%2)ctxt('ДАРЖ ЭХЛЭ',112,1,'#4a3b5c')}}
+ctxt('MADE FOR YOU',70,1,'#9a87d6');ctxt('♥ A GIFT ♥',84,2,'#ff6fa3','#ffd9ea');if((t>>5)%2)ctxt('TAP TO START',112,1,'#4a3b5c')}}
 function loop(){update();draw();requestAnimationFrame(loop)}
 loop();
 const A=document.getElementById('bA'),B=document.getElementById('bB');
