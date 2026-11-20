@@ -90,7 +90,7 @@ const blocks=[36,76,116,156].map(x=>({x,used:false,bump:0}));
 const L1=19,L2=25;
 const words=[{s:'ТӨРСӨН',tx:L1,ty:20,c:'#ff6fa3'},{s:'ӨДРИЙН',tx:L1+84,ty:20,c:'#7a6cf0'},{s:'МЭНД',tx:L2,ty:42,c:'#ff8a5c'},{s:'ХҮРГЭЕ!',tx:L2+60,ty:42,c:'#2fb58f'}];
 words.forEach(w=>{w.on=false;w.x=0;w.y=0});
-const wishes=['ХҮССЭН БҮХЭН ЧИНЬ БИЕЛЭЭСЭЙ!','ИНЭЭД ХӨӨР ЧИНЬ БҮҮ ТАСРАГ','ЭРҮҮЛ ЭНХ ЭРЧ ХҮЧТЭЙ БАЙГААРАЙ','ЭНЭ ЖИЛ ХАМГИЙН ГОЁ ЖИЛ ЧИНЬ!','МӨРӨӨДӨЛ ЧИНЬ БИЕЛЭХ БОЛТУГАЙ','АЗ ЖАРГАЛ ҮРГЭЛЖ ДЭРГЭД ЧИНЬ'];
+const wishes=['ИНЭЭД ХӨӨР ЧИНЬ БҮҮ ТАСРАГ','ЭРҮҮЛ ЭНХ ЭРЧ ХҮЧТЭЙ БАЙГААРАЙ','ЭНЭ ЖИЛ ХАМГИЙН ГОЁ ЖИЛ ЧИНЬ!','МӨРӨӨДӨЛ ЧИНЬ БИЕЛЭХ БОЛТУГАЙ','АЗ ЖАРГАЛ ҮРГЭЛЖ ДЭРГЭД ЧИНЬ'];
 const kid={x:14,y:G,vy:0,ground:true,dir:1,f:0,target:36};
 const cake={x:240,tx:140,lit:true,on:false};
 let state='start',hits=0,t=0,wait=0,wish=-1,blowPending=false,ac=null;
