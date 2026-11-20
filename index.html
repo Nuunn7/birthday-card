@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#fdf1f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Төрсөн өдөр">
+<meta name="description" content="Танд зориулсан бяцхан бэлэг байна ♥">
+<meta property="og:title" content="Төрсөн өдрийн мэнд хүргэе!">
+<meta property="og:description" content="Танд зориулсан бяцхан бэлэг байна ♥">
+<meta property="og:image" content="/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>Төрсөн өдрийн мэнд</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#fdf1f7;--shell:#d4f3e6;--shell2:#b5e6d2;--bezel:#b8acdf;--ink:#4a3b5c;--pink:#ff8fb8;--pink2:#e66d99}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-text-size-adjust:100%}
+body{height:100vh;height:100dvh;display:grid;place-items:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background-image:radial-gradient(#f7d6e8 1.5px,transparent 1.5px);background-size:18px 18px;font-family:"Press Start 2P",monospace}
+.gb{width:min(400px,100%,calc((100vh - 40px)*.56));width:min(400px,100%,calc((100dvh - 40px)*.56));background:var(--shell);border-radius:22px 22px 70px 22px;padding:22px 22px 30px;box-shadow:inset -6px -8px 0 var(--shell2),0 14px 0 -4px #ecd3e3,0 24px 40px rgba(180,120,160,.25);user-select:none;-webkit-user-select:none}
+.bezel{background:var(--bezel);border-radius:12px 12px 36px 12px;padding:16px 18px 12px;box-shadow:inset 0 3px 0 rgba(0,0,0,.08)}
+.led{display:flex;align-items:center;gap:6px;font-size:7px;color:#efe9ff;margin:0 0 8px 2px}
+.led i{width:7px;height:7px;border-radius:50%;background:#ff6f91;box-shadow:0 0 6px #ff6f91}
+canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:4px;cursor:pointer;touch-action:manipulation}
+.brand{font-size:10px;margin:14px 0 18px 4px;color:#8a7bb8;letter-spacing:1px}
+.ctl{display:flex;justify-content:space-between;align-items:center;padding:0 6px}
+.dpad{position:relative;width:88px;height:88px}
+.dpad span{position:absolute;background:var(--ink);border-radius:4px}
+.dpad .h{left:0;top:30px;width:88px;height:28px}.dpad .v{left:30px;top:0;width:28px;height:88px}
+.btns{display:flex;gap:14px;transform:rotate(-22deg)}
+.btn{width:54px;height:54px;border-radius:50%;border:0;background:var(--pink);color:#fff;font:12px "Press Start 2P",monospace;cursor:pointer;box-shadow:0 5px 0 var(--pink2);touch-action:manipulation}
+.btn.b{background:#c9b8ff;box-shadow:0 5px 0 #a594e0}
+.btn:active,.btn.press{transform:translateY(4px);box-shadow:0 1px 0 var(--pink2)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.grill{display:flex;gap:7px;justify-content:flex-end;margin-top:18px;transform:rotate(-22deg);padding-right:6px}
+.grill i{width:5px;height:34px;border-radius:3px;background:var(--shell2)}
+.sel{display:flex;gap:16px;justify-content:center;margin-top:12px}
+.sel span{width:40px;height:10px;border-radius:6px;background:#a8d9c4;transform:rotate(-22deg)}
+@media(max-width:380px),(max-height:680px){.gb{padding:16px 14px 22px}.dpad{transform:scale(.8)}.btn{width:48px;height:48px}.brand{margin:10px 0 12px 4px}.grill{margin-top:10px}.grill i{height:26px}}
+@media(max-height:560px){.grill,.sel{display:none}}
+</style>
+</head>
+<body>
+<div class="gb">
+<div class="bezel"><div class="led"><i></i>POWER</div><canvas id="c" width="192" height="192" aria-label="Төрсөн өдрийн мэндчилгээний тоглоом. Дэлгэц эсвэл A товч дарна."></canvas></div>
+<div class="brand">PARTY BOY ♥</div>
+<div class="ctl"><div class="dpad"><span class="h"></span><span class="v"></span></div><div class="btns"><button class="btn b" id="bB" aria-label="B">B</button><button class="btn" id="bA" aria-label="A">A</button></div></div>
+<div class="sel"><span></span><span></span></div>
+<div class="grill"><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+<script>
+{
+const cv=document.getElementById('c'),g=cv.getContext('2d');g.imageSmoothingEnabled=false;
+const F={
+'А':['.###.','#...#','#...#','#####','#...#','#...#','#...#'],'Б':['#####','#....','#....','####.','#...#','#...#','####.'],
+'В':['####.','#...#','#...#','####.','#...#','#...#','####.'],'Г':['#####','#....','#....','#....','#....','#....','#....'],
+'Д':['..##.','.#.#.','.#.#.','.#.#.','.#.#.','#####','#...#'],'Е':['#####','#....','#....','####.','#....','#....','#####'],
+'Ё':['.#.#.','#####','#....','####.','#....','#....','#####'],'Ж':['#.#.#','#.#.#','.###.','..#..','.###.','#.#.#','#.#.#'],
+'З':['.###.','#...#','....#','..##.','....#','#...#','.###.'],'И':['#...#','#...#','#..##','#.#.#','##..#','#...#','#...#'],
+'Й':['.#.#.','..#..','#...#','#..##','#.#.#','##..#','#...#'],'К':['#...#','#..#.','#.#..','##...','#.#..','#..#.','#...#'],
+'Л':['..###','.#..#','.#..#','.#..#','.#..#','.#..#','#...#'],'М':['#...#','##.##','#.#.#','#.#.#','#...#','#...#','#...#'],
+'Н':['#...#','#...#','#...#','#####','#...#','#...#','#...#'],'О':['.###.','#...#','#...#','#...#','#...#','#...#','.###.'],
+'Ө':['.###.','#...#','#...#','#####','#...#','#...#','.###.'],'П':['#####','#...#','#...#','#...#','#...#','#...#','#...#'],
+'Р':['####.','#...#','#...#','####.','#....','#....','#....'],'С':['.###.','#...#','#....','#....','#....','#...#','.###.'],
+'Т':['#####','..#..','..#..','..#..','..#..','..#..','..#..'],'У':['#...#','#...#','#...#','.####','....#','#...#','.###.'],
+'Ү':['#...#','#...#','.#.#.','..#..','..#..','..#..','..#..'],'Х':['#...#','#...#','.#.#.','..#..','.#.#.','#...#','#...#'],
+'Ч':['#...#','#...#','#...#','.####','....#','....#','....#'],'Ь':['#....','#....','#....','####.','#...#','#...#','####.'],
+'Ы':['#...#','#...#','#...#','##..#','#.#.#','#.#.#','##..#'],'Э':['.###.','#...#','....#','..###','....#','#...#','.###.'],
+'Ш':['#.#.#','#.#.#','#.#.#','#.#.#','#.#.#','#.#.#','#####'],'Я':['.####','#...#','#...#','.####','..#.#','.#..#','#...#'],
+'!':['..#..','..#..','..#..','..#..','..#..','.....','..#..'],'?':['.###.','#...#','....#','...#.','..#..','.....','..#..'],
+'♥':['.....','.#.#.','#####','#####','.###.','..#..','.....'],' ':['.....','.....','.....','.....','.....','.....','.....']};
+const r=(x,y,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(x),Math.round(y),w,h)};
+const tw=(s,k)=>s.length*6*k-k;
+const txt=(s,x,y,k,c,sh)=>{[...s].forEach((ch,i)=>{const gl=F[ch];if(!gl)return;gl.forEach((row,ry)=>{[...row].forEach((p,rx)=>{if(p==='#'){if(sh)r(x+i*6*k+rx*k+k,y+ry*k+k,k,k,sh);r(x+i*6*k+rx*k,y+ry*k,k,k,c)}})})})};
+const ctxt=(s,y,k,c,sh)=>txt(s,Math.round((192-tw(s,k))/2),y,k,c,sh);
+const P={y:'#ffe066',p:'#ff8fb8',k:'#4a3b5c',s:'#ffd9c2',r:'#ff9eaa',b:'#8ecdf7',w:'#ffffff'};
+const KID=['....y....','....p....','...ppp...','..ppppp..','.kkkkkkk.','.kssssss.','..sksks..','..rsssr..','...sss...','..bbbbb..','.sbbbbbs.','..bbbbb..'];
+const LEG=[['..k...k..','.kk...kk.'],['...k.k...','..kk.kk..']];
+const spr=(rows,x,y,flip)=>rows.forEach((row,ry)=>[...row].forEach((c,rx)=>{if(c!=='.')r(x+(flip?8-rx:rx),y+ry,1,1,P[c])}));
+const G=150,BY=102;
+const blocks=[36,76,116,156].map(x=>({x,used:false,bump:0}));
+const L1=19,L2=25;
+const words=[{s:'ТӨРСӨН',tx:L1,ty:20,c:'#ff6fa3'},{s:'ӨДРИЙН',tx:L1+84,ty:20,c:'#7a6cf0'},{s:'МЭНД',tx:L2,ty:42,c:'#ff8a5c'},{s:'ХҮРГЭЕ!',tx:L2+60,ty:42,c:'#2fb58f'}];
+words.forEach(w=>{w.on=false;w.x=0;w.y=0});
+const wishes=['ХҮССЭН БҮХЭН ЧИНЬ БИЕЛЭЭСЭЙ!','ИНЭЭД ХӨӨР ЧИНЬ БҮҮ ТАСРАГ','ЭРҮҮЛ ЭНХ ЭРЧ ХҮЧТЭЙ БАЙГААРАЙ','ЭНЭ ЖИЛ ХАМГИЙН ГОЁ ЖИЛ ЧИНЬ!','МӨРӨӨДӨЛ ЧИНЬ БИЕЛЭХ БОЛТУГАЙ','АЗ ЖАРГАЛ ҮРГЭЛЖ ДЭРГЭД ЧИНЬ'];
+const kid={x:14,y:G,vy:0,ground:true,dir:1,f:0,target:36};
+const cake={x:240,tx:140,lit:true,on:false};
+let state='start',hits=0,t=0,wait=0,wish=-1,blowPending=false,ac=null;
+const bits=[];
+const clouds=[{x:20,y:66,w:3},{x:110,y:78,w:2},{x:170,y:60,w:3}];
+const pastel=['#ff8fb8','#ffe066','#8ecdf7','#b9a7ff','#8fe3c0','#ffb38a'];
+const burst=(x,y,n,sp)=>{for(let i=0;i<n;i++){const a=Math.random()*6.28,s=Math.random()*sp+.5;bits.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,c:pastel[i%6],l:60+Math.random()*60})}};
+const tone=(f,d,at,type,v)=>{try{if(!ac)return;const o=ac.createOscillator(),gn=ac.createGain(),s=ac.currentTime+(at||0);o.type=type||'square';o.frequency.setValueAtTime(f,s);gn.gain.setValueAtTime(v||.05,s);gn.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(gn).connect(ac.destination);o.start(s);o.stop(s+d)}catch(e){}};
+const jumpS=()=>{try{if(!ac)return;const o=ac.createOscillator(),gn=ac.createGain(),s=ac.currentTime;o.type='square';o.frequency.setValueAtTime(260,s);o.frequency.exponentialRampToValueAtTime(700,s+.15);gn.gain.setValueAtTime(.04,s);gn.gain.exponentialRampToValueAtTime(.001,s+.18);o.connect(gn).connect(ac.destination);o.start(s);o.stop(s+.2)}catch(e){}};
+const coin=()=>{tone(988,.08,0);tone(1319,.3,.08)};
+const N={G4:392,A4:440,B4:494,C5:523,D5:587,E5:659,F5:698,G5:784};
+const song=()=>{let at=.1;[['G4',.75],['G4',.25],['A4',1],['G4',1],['C5',1],['B4',2],['G4',.75],['G4',.25],['A4',1],['G4',1],['D5',1],['C5',2],['G4',.75],['G4',.25],['G5',1],['E5',1],['C5',1],['B4',1],['A4',2],['F5',.75],['F5',.25],['E5',1],['C5',1],['D5',1],['C5',2.5]].forEach(([n,d])=>{tone(N[n],d*.26,at,'square',.035);at+=d*.28})};
+const buzz=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
+const audio=()=>{try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}};
+function press(){
+audio();
+if(state==='start'){state='play';coin();return}
+if(kid.ground){kid.vy=-5.3;kid.ground=false;jumpS();buzz(15);
+if(state==='cake'&&cake.on&&cake.lit)blowPending=true;
+else if(state==='party'){burst(kid.x,kid.y-14,30,2.5);wish=(wish+1)%wishes.length;tone(880,.1,0);tone(1175,.15,.1)}}}
+function update(){t++;
+clouds.forEach(c=>{c.x-=.08*c.w;if(c.x<-40)c.x=200});
+if(state==='play'||state==='cake'||state==='party'){
+if(kid.ground&&kid.target!=null){const d=kid.target-kid.x;if(Math.abs(d)>.6){kid.dir=Math.sign(d);kid.x+=kid.dir*.8;kid.f+=.15}}
+if(!kid.ground){kid.vy+=.36;kid.y+=kid.vy;
+if(kid.vy<0&&state==='play')blocks.forEach((b,i)=>{if(Math.abs(kid.x-b.x)<9&&kid.y-14<=BY+14&&kid.y-14>BY+6){kid.y=BY+28;kid.vy=1;b.bump=6;
+if(!b.used){b.used=true;const w=words[i];w.on=true;w.x=b.x-tw(w.s,2)/2;w.y=BY-10;hits++;coin();burst(b.x,BY,14,1.6);
+const nxt=blocks.find(q=>!q.used);if(nxt)kid.target=nxt.x}else tone(200,.08,0)}});
+if(blowPending&&kid.vy>=0){blowPending=false;cake.lit=false;state='party';burst(cake.x,G-36,90,3.2);song();buzz([40,40,80]);wish=0}
+if(kid.y>=G){kid.y=G;kid.vy=0;kid.ground=true}}}
+blocks.forEach(b=>{if(b.bump>0)b.bump--});
+words.forEach(w=>{if(w.on){w.x+=(w.tx-w.x)*.08;w.y+=(w.ty-w.y)*.08}});
+if(state==='play'&&hits===4&&++wait>70){state='cake';blocks.forEach(b=>burst(b.x,BY+7,10,1.2));kid.target=104;cake.x=240}
+if(state==='cake'){cake.x+=(cake.tx-cake.x)*.06;if(Math.abs(cake.x-cake.tx)<1)cake.on=true}
+if(state==='party'&&t%50===0)burst(20+Math.random()*152,30+Math.random()*60,16,2);
+for(let i=bits.length-1;i>=0;i--){const p=bits[i];p.vy+=.08;p.vx*=.98;p.x+=p.vx;p.y+=p.vy;if(--p.l<0||p.y>192)bits.splice(i,1)}}
+function drawCake(x){const by=G;
+r(x-24,by-4,48,4,'#e8d6f5');r(x-20,by-20,40,16,'#ffb3cf');r(x-20,by-20,40,3,'#fff6ec');
+for(let i=0;i<10;i++)r(x-20+i*4,by-17+(i%2)*2,4,2,'#fff6ec');r(x-14,by-32,28,12,'#fff1a8');r(x-14,by-32,28,3,'#fff6ec');
+[-14,-6,2,10].forEach(o=>r(x+o+1,by-27,2,2,'#ff8fb8'));[-16,-8,0,8,16].forEach(o=>r(x+o,by-12,2,2,'#8ecdf7'));
+[-8,0,8].forEach((o,i)=>{r(x+o-1,by-40,2,8,i%2?'#8fe3c0':'#b9a7ff');
+if(cake.lit){const fl=(t>>3)%2;r(x+o-1,by-44-fl,2,3,'#ffb84d');r(x+o-1,by-43,2,1,'#fff1a8')}
+else if(t%40<30)r(x+o-1+((t>>4)%2),by-46-(t%40)/6,1,1,'#c8c2d6')})}
+function draw(){
+const sky=['#c4e6ff','#cdeaff','#d6eeff','#dff1ff','#e8f4ff','#f2f1ff','#fbebf6','#ffe4f0'];
+sky.forEach((c,i)=>r(0,i*19,192,19,c));
+r(150,14,16,16,'#fff4b8');r(148,18,20,8,'#fff4b8');r(154,12,8,20,'#fff4b8');
+clouds.forEach(c=>{const s=c.w*4;r(c.x,c.y,s*4,s,'#fff');r(c.x+s,c.y-s,s*2,s,'#fff');r(c.x+s*.5,c.y+s,s*3,2,'#e6ecfb')});
+for(let x=0;x<192;x+=4){const h=10+Math.round(8*Math.sin(x/22)+5*Math.sin(x/9+1));r(x,G-h,4,h,'#c3ecd0')}
+for(let x=0;x<192;x+=4){const h=4+Math.round(5*Math.sin(x/15+3));r(x,G-h,4,h,'#a9e3b8')}
+r(0,G,192,6,'#9bdb9a');for(let x=0;x<192;x+=6)r(x+(x%12?0:3),G-2,2,2,'#9bdb9a');
+r(0,G+6,192,36,'#f7dcb0');for(let y=G+10;y<192;y+=8)for(let x=((y/8)%2)*8;x<192;x+=16)r(x,y,3,2,'#efc996');
+if(state==='play'||state==='start')blocks.forEach(b=>{const y=BY-b.bump/2;
+if(b.used){r(b.x-7,y,14,14,'#d9c8ff');r(b.x-7,y+12,14,2,'#b9a7ff');r(b.x-5,y+2,2,2,'#efe6ff')}
+else{r(b.x-7,y,14,14,'#ffd36e');r(b.x-7,y+12,14,2,'#e8a94c');r(b.x+5,y,2,14,'#e8a94c');r(b.x-6,y+1,1,1,'#fff1a8');
+const bob=(t>>4)%2;txt('?',b.x-3,y+3+(bob?0:0),1,bob?'#c67b2a':'#a8611c')}});
+if(state==='cake'||state==='party')drawCake(cake.x);
+words.forEach(w=>{if(w.on)txt(w.s,Math.round(w.x),Math.round(w.y),2,w.c,'#ffffff')});
+const walking=kid.ground&&Math.abs((kid.target??kid.x)-kid.x)>.6;
+const legs=kid.ground?(walking?LEG[Math.floor(kid.f)%2]:LEG[0]):LEG[1];
+const bobY=kid.ground&&!walking&&(t>>5)%2?1:0;
+spr(KID.concat(legs),kid.x-4,kid.y-14-bobY,kid.dir<0);
+const idle=kid.ground&&!walking;
+if(idle&&(state==='play'||(state==='cake'&&cake.on))&&(t>>4)%2){const ay=kid.y-24;r(kid.x-2,ay,5,1,'#ff6fa3');r(kid.x-1,ay+1,3,1,'#ff6fa3');r(kid.x,ay+2,1,1,'#ff6fa3')}
+bits.forEach(p=>r(p.x,p.y,2,2,p.c));
+if(state==='party'&&wish>=0){const s=wishes[wish],w=tw(s,1)+12,x=Math.round((192-w)/2);
+r(x,166,w,17,'#4a3b5c');r(x+1,167,w-2,15,'#fff8ec');txt(s,x+6,171,1,'#4a3b5c')}
+if(state==='start'){r(18,58,156,74,'#4a3b5c');r(20,60,152,70,'#fff8ec');r(20,60,152,3,'#ffd9ea');
+ctxt('ТАНД ЗОРИУЛАВ',70,1,'#9a87d6');ctxt('♥ БЭЛЭГ ♥',84,2,'#ff6fa3','#ffd9ea');if((t>>5)%2)ctxt('ДАРЖ ЭХЛЭ',112,1,'#4a3b5c')}}
+function loop(){update();draw();requestAnimationFrame(loop)}
+loop();
+const A=document.getElementById('bA'),B=document.getElementById('bB');
+cv.addEventListener('pointerdown',e=>{e.preventDefault();press()});
+A.addEventListener('pointerdown',e=>{e.preventDefault();press()});
+A.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();press()}});
+B.addEventListener('pointerdown',e=>{e.preventDefault();audio();buzz(10);if(state!=='start'){burst(kid.x,kid.y-10,20,2);tone(660,.1,0,'triangle',.06)}else press()});
+document.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter'||e.code==='ArrowUp'||e.key==='a'){if(e.target.tagName!=='BUTTON'){e.preventDefault();A.classList.add('press');press()}}});
+addEventListener('keyup',()=>A.classList.remove('press'));
+}
+</script>
+</body>
+</html>
